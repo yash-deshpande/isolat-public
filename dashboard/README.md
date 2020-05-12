@@ -8,9 +8,9 @@ Isolat’s purpose is to improve access to various publicly available data sourc
 
 This is a fork of https://github.com/reichlab/covid19-forecast-hub
 
-## building:
+## building (windows):
 
-Dep: install yarn 
+Dep: install yarn (https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
 npm install
 
@@ -21,3 +21,7 @@ yarn run build
 serve -s dist
 
 visit localhost:5000
+
+
+## Mac instructions (see reichlab readme)
+https://github.com/reichlab/covid19-forecast-hub/tree/master/visualization
