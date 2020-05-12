@@ -1,44 +1,14 @@
-## tex/*.out
-##code/.ipynb_checkpoints/*
-## Core latex/pdflatex auxiliary files: 
-*.aux 
-*.lof 
-*.log 
-*.lot 
-*.fls 
-*.out 
-*.toc 
-*.fmt 
-*.fot 
-*.cb 
-*.cb2  
-## Intermediate documents: 
-*.dvi 
-*-converted-to.* 
-# these rules might exclude image files for figures etc. 
-*.ps 
-*.eps 
-## Bibliography auxiliary files (bibtex/biblatex/biber): 
-*.bbl 
-*.bcf 
-*.blg 
-*-blx.aux 
-*-blx.bib 
-*.run.xml 
- ## Build tool auxiliary files: 
-*.fdb_latexmk 
-*.synctex 
-*.synctex(busy) 
-*.synctex.gz 
-*.synctex.gz(busy) 
-*.pdfsync
-*.fls
-## database files
-*.h5
-## Mac OS DS_Store file
-.DS_Store
-## python precompiled
-data/__pycache__/
-*.pyc
+*.DS_Store
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
 
-src/.ipynb_checkpoints/
+node_modules
+visualization/data
+visualization/vis-master/data
+.ipynb_checkpoints
+covid19-forecast-hub.Rproj
+
+.vscode
+packrat/lib*/
