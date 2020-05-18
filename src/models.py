@@ -1,11 +1,4 @@
 # +
-import sklearn as skl
-import numpy as np
-import pandas as pd
-import scipy.linalg as la
-import scipy.stats as spstats
-
-
 def base_forecast_linear(series, target_end_date = None, forecast_type="point", quantile=None):
     """
         Input:
