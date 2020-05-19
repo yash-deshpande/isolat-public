@@ -1,5 +1,19 @@
 # +
-def base_forecast_linear(series, target_end_date = None, forecast_type="point", quantile=None):
+def rolling_forecast(series,
+                     forecast_func=base_forecast_linear,
+                     target_end_date=None, 
+                     forecast_type="point", 
+                     quantile=None, 
+                     stride=7, 
+                     width=21):
+    """
+        Creates a rolling forecast out of base forecast 
+    """
+    
+
+
+
+def base_forecast_linear(series, target_date_range = None, forecast_type="point", quantile=None):
     """
         Input:
         series: input time series of daily counts
@@ -13,17 +27,19 @@ def base_forecast_linear(series, target_end_date = None, forecast_type="point", 
     series = series.copy()
     
     base_date = dt.datetime.strptime('01/01/20', '%m/%d/%y')
-    end_date = series.index[-1] 
-    if target_end_date is None:
-        target_end_date = end_date+dt.timedelta(days=21) # default 3 week forecast
+    end_date = series.index[-1]
+    start_date = series.index[0]
+    if target_date_range is None: # default three weeks ahead forecast
+        target_end_date = end_date + dt.timedelta(days=21)
+        target_date_range = pd.date_range(start_date, target_end_date) 
     
-    if target_end_date < end_date:
-        print('target_end_date before end of series, not valid forecast')
-        raise ValueError
+#     if target_end_date < end_date:
+#         print('target_end_date before end of series, not valid forecast')
+#         raise ValueError
     
     
     # create prediction dates and dummy holder
-    prediction_dates = pd.date_range(end_date + dt.timedelta(days=1), target_end_date)
+    prediction_dates = target_date_range.copy()
     predictions = pd.Series(0, index=prediction_dates)
     predict_feats = featurize(predictions)
     
@@ -50,7 +66,7 @@ def base_forecast_linear(series, target_end_date = None, forecast_type="point", 
     predict_std = np.sqrt(predict_var)
     # adjust for quantiles
     # using asymptotics now
-    if forecast_type is "quantile": 
+    if forecast_type is "quantile" or quantile is not None: 
         log_predictions_quantile = log_predictions + predict_std*spstats.norm.ppf(quantile)
     else:
         quantile = 0.5 #not really necessary
