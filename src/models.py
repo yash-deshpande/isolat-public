@@ -7,6 +7,7 @@ import numpy as np
 import scipy.linalg as la
 import scipy.stats as spstats
 import features
+import sklearn
 
 # def rolling_forecast(series,
 #                      forecast_func=base_forecast_linear,
@@ -59,7 +60,7 @@ def base_forecast_linear(series,
     
     
     # get input features and scale input and prediction features
-    scaler = skl.preprocessing.StandardScaler(with_mean=False)
+    scaler = sklearn.preprocessing.StandardScaler(with_mean=False)
     feats = features.featurize(series)
     # standardize all features 
     feats_scaled = scaler.fit_transform(feats)
