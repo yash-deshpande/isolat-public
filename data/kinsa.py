@@ -71,3 +71,32 @@ def get_kinsa_data(input_states_list = None):
     return kinsa_df
 
 
+
+
+def enrich_nyt_kinsa(df,kinsa_df):
+    
+    # standardize date format
+    df['date'] = pd.to_datetime(df['date'], format='%m/%d/%y')
+    
+    #create a key to join the data (date + state + county)
+    df['key'] =  df['date'].map(str) + df['state'].map(str) + df['county'].map(str)
+
+    df = df.sort_values(by=['key'], ascending=True)
+    
+    #standardize date format
+    kinsa_df['date'] = pd.to_datetime(kinsa_df['date'], format='%m/%d/%y')
+
+    #strip out the string 'county'
+    kinsa_df['region_name'] = [x.replace(' County','') for x in kinsa_df['region_name']]
+
+    kinsa_df.reset_index(drop=True, inplace=True)
+    
+    #create the key to join on (date + state + county)
+    kinsa_df['key'] =  kinsa_df['date'].map(str) + kinsa_df['state'].map(str) + kinsa_df['region_name'].map(str)
+
+    #merge
+    df = df.merge(kinsa_df, left_on='key', right_on='key')
+
+    
+    return df
+
